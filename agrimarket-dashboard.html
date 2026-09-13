@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriMarket — Marketplace</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          paper:   '#FAF6EE',
+          ink:     '#23201A',
+          forest:  '#1F4034',
+          leaf:    '#3D7A5C',
+          harvest: '#DE9B34',
+          soil:    '#8B5E3C',
+          line:    '#E4DCC8',
+        },
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { font-family: 'Inter', sans-serif; background-color: #FAF6EE; color: #23201A; }
+  .font-display { font-family: 'Fraunces', serif; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* Signature element: mandi stamp badge on produce cards */
+  .stamp {
+    border: 1.5px dashed rgba(31,64,52,0.55);
+    border-radius: 9999px;
+    transform: rotate(-5deg);
+    background: rgba(250,246,238,0.92);
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid #1F4034;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #E4DCC8; border-radius: 9999px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card-hover { transition: transform 200ms ease, box-shadow 200ms ease; }
+    .card-hover:hover { transform: translateY(-3px); box-shadow: 0 10px 24px -12px rgba(31,64,52,0.25); }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- ============ HEADER ============ -->
+<header class="sticky top-0 z-30 bg-paper/95 backdrop-blur border-b border-line">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3 sm:gap-6">
+    <div class="flex items-center gap-2 shrink-0">
+      <div class="w-8 h-8 rounded-full bg-forest text-paper flex items-center justify-center">
+        <i data-lucide="sprout" class="w-4 h-4"></i>
+      </div>
+      <span class="font-display font-bold text-lg text-forest hidden sm:block">AgriMarket</span>
+    </div>
+
+    <div class="flex-1 max-w-xl">
+      <label class="relative block">
+        <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-ink/40"></i>
+        <input type="text" placeholder="Search produce or location…"
+          class="w-full pl-10 pr-3 py-2.5 rounded-full border border-line bg-white text-sm focus:border-leaf outline-none">
+      </label>
+    </div>
+
+    <div class="flex-1"></div>
+
+    <div class="hidden sm:flex items-center gap-2 text-sm text-ink/70">
+      <div class="w-7 h-7 rounded-full bg-leaf/15 text-forest flex items-center justify-center text-xs font-semibold">RY</div>
+      <span>Ramesh Yadav</span>
+    </div>
+
+    <button class="relative w-10 h-10 rounded-full bg-forest text-paper flex items-center justify-center shrink-0">
+      <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+      <span class="absolute -top-1 -right-1 bg-harvest text-forest text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-paper">3</span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ MAIN ============ -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+
+  <div class="mb-6">
+    <p class="text-xs font-mono uppercase tracking-wide text-soil">Welcome back</p>
+    <h1 class="font-display text-2xl sm:text-3xl font-bold text-forest mt-0.5">Today's harvest</h1>
+    <p class="text-sm text-ink/60 mt-1">Fresh listings straight from the farm, priced per kilogram.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-6">
+
+    <!-- Sidebar (static demo) -->
+    <aside class="lg:sticky lg:top-24 h-fit bg-white border border-line rounded-2xl p-5 space-y-6">
+      <div class="flex items-center justify-between">
+        <h2 class="font-display font-semibold text-forest">Filters</h2>
+        <span class="text-xs text-soil flex items-center gap-1">
+          <i data-lucide="rotate-ccw" class="w-3 h-3"></i> Reset
+        </span>
+      </div>
+
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wide text-ink/50 mb-2.5">Category</h3>
+        <div class="space-y-1 text-sm">
+          <div class="px-3 py-2 rounded-lg bg-leaf/15 text-forest font-medium">All</div>
+          <div class="px-3 py-2 rounded-lg text-ink/60">Grains & Pulses</div>
+          <div class="px-3 py-2 rounded-lg text-ink/60">Vegetables</div>
+          <div class="px-3 py-2 rounded-lg text-ink/60">Fruits</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between mb-2.5">
+          <h3 class="text-xs font-semibold uppercase tracking-wide text-ink/50">Max price</h3>
+          <span class="font-mono text-xs text-forest font-semibold">₹200/kg</span>
+        </div>
+        <div class="w-full h-1.5 rounded-full bg-line relative">
+          <div class="absolute left-0 top-0 h-1.5 rounded-full bg-forest w-full"></div>
+          <div class="absolute right-0 -top-1.5 w-4 h-4 rounded-full bg-forest border-2 border-paper shadow"></div>
+        </div>
+        <div class="flex justify-between text-[10px] text-ink/40 font-mono mt-1">
+          <span>₹10</span><span>₹200</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Grid (demo data only) -->
+    <div>
+      <p class="text-xs text-ink/50 font-mono mb-3">6 listings</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+
+        <!-- Card 1 -->
+        <div class="card-hover bg-white border border-line rounded-2xl overflow-hidden flex flex-col">
+          <div class="relative h-36 bg-gradient-to-br from-leaf/15 to-harvest/15 flex items-center justify-center">
+            <span class="text-5xl">🌾</span>
+            <span class="stamp absolute top-3 left-3 text-[10px] font-mono font-semibold uppercase tracking-wide px-2.5 py-1 text-forest">Grains</span>
+          </div>
+          <div class="p-4 flex-1 flex flex-col">
+            <h3 class="font-display font-semibold text-base leading-snug">Basmati Rice</h3>
+            <p class="text-xs text-ink/50 mt-1 flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3 h-3"></i> Karnal, Haryana
+            </p>
+            <p class="text-xs text-ink/40 mt-0.5">Sold by Suresh Rathi</p>
+            <div class="flex items-end justify-between mt-3">
+              <div><span class="font-mono text-lg font-bold text-forest">₹85</span><span class="text-xs text-ink/40">/kg</span></div>
+              <span class="text-[11px] text-ink/40 font-mono">500kg left</span>
+            </div>
+            <button class="mt-3 w-full bg-forest text-paper text-sm font-medium py-2.5 rounded-lg flex items-center justify-center gap-1.5">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add to cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card-hover bg-white border border-line rounded-2xl overflow-hidden flex flex-col">
+          <div class="relative h-36 bg-gradient-to-br from-leaf/15 to-harvest/15 flex items-center justify-center">
+            <span class="text-5xl">🍅</span>
+            <span class="stamp absolute top-3 left-3 text-[10px] font-mono font-semibold uppercase tracking-wide px-2.5 py-1 text-forest">Vegetables</span>
+          </div>
+          <div class="p-4 flex-1 flex flex-col">
+            <h3 class="font-display font-semibold text-base leading-snug">Red Tomatoes</h3>
+            <p class="text-xs text-ink/50 mt-1 flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3 h-3"></i> Nashik, Maharashtra
+            </p>
+            <p class="text-xs text-ink/40 mt-0.5">Sold by Vinayak Pawar</p>
+            <div class="flex items-end justify-between mt-3">
+              <div><span class="font-mono text-lg font-bold text-forest">₹28</span><span class="text-xs text-ink/40">/kg</span></div>
+              <span class="text-[11px] text-ink/40 font-mono">220kg left</span>
+            </div>
+            <button class="mt-3 w-full bg-forest text-paper text-sm font-medium py-2.5 rounded-lg flex items-center justify-center gap-1.5">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add to cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card-hover bg-white border border-line rounded-2xl overflow-hidden flex flex-col">
+          <div class="relative h-36 bg-gradient-to-br from-leaf/15 to-harvest/15 flex items-center justify-center">
+            <span class="text-5xl">🥭</span>
+            <span class="stamp absolute top-3 left-3 text-[10px] font-mono font-semibold uppercase tracking-wide px-2.5 py-1 text-forest">Fruits</span>
+          </div>
+          <div class="p-4 flex-1 flex flex-col">
+            <h3 class="font-display font-semibold text-base leading-snug">Alphonso Mangoes</h3>
+            <p class="text-xs text-ink/50 mt-1 flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3 h-3"></i> Ratnagiri, Maharashtra
+            </p>
+            <p class="text-xs text-ink/40 mt-0.5">Sold by Anjali Kadam</p>
+            <div class="flex items-end justify-between mt-3">
+              <div><span class="font-mono text-lg font-bold text-forest">₹140</span><span class="text-xs text-ink/40">/kg</span></div>
+              <span class="text-[11px] text-ink/40 font-mono">150kg left</span>
+            </div>
+            <button class="mt-3 w-full bg-forest text-paper text-sm font-medium py-2.5 rounded-lg flex items-center justify-center gap-1.5">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add to cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card-hover bg-white border border-line rounded-2xl overflow-hidden flex flex-col">
+          <div class="relative h-36 bg-gradient-to-br from-leaf/15 to-harvest/15 flex items-center justify-center">
+            <span class="text-5xl">🫘</span>
+            <span class="stamp absolute top-3 left-3 text-[10px] font-mono font-semibold uppercase tracking-wide px-2.5 py-1 text-forest">Grains</span>
+          </div>
+          <div class="p-4 flex-1 flex flex-col">
+            <h3 class="font-display font-semibold text-base leading-snug">Toor Dal</h3>
+            <p class="text-xs text-ink/50 mt-1 flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3 h-3"></i> Latur, Maharashtra
+            </p>
+            <p class="text-xs text-ink/40 mt-0.5">Sold by Ramesh Yadav</p>
+            <div class="flex items-end justify-between mt-3">
+              <div><span class="font-mono text-lg font-bold text-forest">₹105</span><span class="text-xs text-ink/40">/kg</span></div>
+              <span class="text-[11px] text-ink/40 font-mono">300kg left</span>
+            </div>
+            <button class="mt-3 w-full bg-forest text-paper text-sm font-medium py-2.5 rounded-lg flex items-center justify-center gap-1.5">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add to cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card-hover bg-white border border-line rounded-2xl overflow-hidden flex flex-col">
+          <div class="relative h-36 bg-gradient-to-br from-leaf/15 to-harvest/15 flex items-center justify-center">
+            <span class="text-5xl">🥬</span>
+            <span class="stamp absolute top-3 left-3 text-[10px] font-mono font-semibold uppercase tracking-wide px-2.5 py-1 text-forest">Vegetables</span>
+          </div>
+          <div class="p-4 flex-1 flex flex-col">
+            <h3 class="font-display font-semibold text-base leading-snug">Fresh Spinach</h3>
+            <p class="text-xs text-ink/50 mt-1 flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3 h-3"></i> Ludhiana, Punjab
+            </p>
+            <p class="text-xs text-ink/40 mt-0.5">Sold by Gurpreet Singh</p>
+            <div class="flex items-end justify-between mt-3">
+              <div><span class="font-mono text-lg font-bold text-forest">₹18</span><span class="text-xs text-ink/40">/kg</span></div>
+              <span class="text-[11px] text-ink/40 font-mono">90kg left</span>
+            </div>
+            <button class="mt-3 w-full bg-forest text-paper text-sm font-medium py-2.5 rounded-lg flex items-center justify-center gap-1.5">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add to cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card-hover bg-white border border-line rounded-2xl overflow-hidden flex flex-col">
+          <div class="relative h-36 bg-gradient-to-br from-leaf/15 to-harvest/15 flex items-center justify-center">
+            <span class="text-5xl">🧅</span>
+            <span class="stamp absolute top-3 left-3 text-[10px] font-mono font-semibold uppercase tracking-wide px-2.5 py-1 text-forest">Vegetables</span>
+          </div>
+          <div class="p-4 flex-1 flex flex-col">
+            <h3 class="font-display font-semibold text-base leading-snug">Onions</h3>
+            <p class="text-xs text-ink/50 mt-1 flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3 h-3"></i> Nashik, Maharashtra
+            </p>
+            <p class="text-xs text-ink/40 mt-0.5">Sold by Manoj Deshmukh</p>
+            <div class="flex items-end justify-between mt-3">
+              <div><span class="font-mono text-lg font-bold text-forest">₹22</span><span class="text-xs text-ink/40">/kg</span></div>
+              <span class="text-[11px] text-ink/40 font-mono">400kg left</span>
+            </div>
+            <button class="mt-3 w-full bg-forest text-paper text-sm font-medium py-2.5 rounded-lg flex items-center justify-center gap-1.5">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add to cart
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="max-w-7xl mx-auto px-4 sm:px-6 py-10 mt-6 border-t border-line text-center">
+  <p class="text-xs text-ink/40">AgriMarket MVP — academic prototype. Static demo data shown above.</p>
+</footer>
+
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>

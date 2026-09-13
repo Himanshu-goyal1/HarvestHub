@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-body bg-paper text-ink;
+  }
+  h1,
+  h2 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  /* Signature element: mandi stamp badge on produce cards */
+  .stamp {
+    border: 1.5px dashed rgba(31, 64, 52, 0.55);
+    border-radius: 9999px;
+    transform: rotate(-5deg);
+    background: rgba(250, 246, 238, 0.92);
+  }
+
+  .card-hover {
+    transition:
+      transform 200ms ease,
+      box-shadow 200ms ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px -12px rgba(31, 64, 52, 0.25);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e4dcc8;
+  border-radius: 9999px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #1f4034;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Custom range slider styling (price filter) */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 9999px;
+  background: #e4dcc8;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: #1f4034;
+  border: 2px solid #faf6ee;
+  box-shadow: 0 0 0 1px #1f4034;
+  cursor: pointer;
+  margin-top: -6px;
+}
+input[type='range']::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: #1f4034;
+  border: 2px solid #faf6ee;
+  box-shadow: 0 0 0 1px #1f4034;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-hover {
+    transition: none !important;
+  }
+}

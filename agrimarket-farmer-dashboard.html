@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriMarket — Farmer Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          paper:   '#FAF6EE',
+          ink:     '#23201A',
+          forest:  '#1F4034',
+          leaf:    '#3D7A5C',
+          harvest: '#DE9B34',
+          soil:    '#8B5E3C',
+          line:    '#E4DCC8',
+          rust:    '#B4552F',
+        },
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { font-family: 'Inter', sans-serif; background-color: #FAF6EE; color: #23201A; }
+  .font-display { font-family: 'Fraunces', serif; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+  .stamp {
+    border: 1.5px dashed rgba(139,94,60,0.55);
+    border-radius: 9999px;
+    transform: rotate(-5deg);
+    background: rgba(250,246,238,0.92);
+  }
+
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid #8B5E3C;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #E4DCC8; border-radius: 9999px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card-hover { transition: transform 200ms ease, box-shadow 200ms ease; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -12px rgba(31,64,52,0.2); }
+    .bar-grow { transition: height 700ms ease; }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- ============ HEADER ============ -->
+<header class="sticky top-0 z-30 bg-paper/95 backdrop-blur border-b border-line">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3 sm:gap-6">
+    <div class="flex items-center gap-2 shrink-0">
+      <div class="w-8 h-8 rounded-full bg-forest text-paper flex items-center justify-center">
+        <i data-lucide="sprout" class="w-4 h-4"></i>
+      </div>
+      <span class="font-display font-bold text-lg text-forest hidden sm:block">AgriMarket</span>
+      <span class="hidden sm:inline text-xs font-mono uppercase tracking-wide text-soil bg-soil/10 px-2 py-0.5 rounded-full ml-1">Farmer</span>
+    </div>
+
+    <div class="flex-1"></div>
+
+    <div class="flex items-center gap-2 text-sm text-ink/70">
+      <div class="w-7 h-7 rounded-full bg-soil/15 text-soil flex items-center justify-center text-xs font-semibold">SR</div>
+      <span class="hidden sm:inline">Suresh Rathi</span>
+    </div>
+
+    <button class="relative w-10 h-10 rounded-full bg-soil text-paper flex items-center justify-center shrink-0">
+      <i data-lucide="bell" class="w-4 h-4"></i>
+      <span class="absolute -top-1 -right-1 bg-harvest text-forest text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-paper">2</span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ MAIN ============ -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+  <div>
+    <p class="text-xs font-mono uppercase tracking-wide text-soil">Farmer dashboard</p>
+    <h1 class="font-display text-2xl sm:text-3xl font-bold text-forest mt-0.5">Welcome back, Suresh</h1>
+    <p class="text-sm text-ink/60 mt-1">Here's how your listings are performing this month.</p>
+  </div>
+
+  <!-- ============ KPI CARDS ============ -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="bg-white border border-line rounded-2xl p-4 sm:p-5">
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-ink/50">Total revenue</span>
+        <i data-lucide="indian-rupee" class="w-3.5 h-3.5 text-leaf"></i>
+      </div>
+      <p class="font-mono text-xl sm:text-2xl font-bold text-forest mt-1.5">₹1,84,250</p>
+      <p class="text-[11px] text-leaf mt-1 flex items-center gap-1">
+        <i data-lucide="trending-up" class="w-3 h-3"></i> +12.4% vs last month
+      </p>
+    </div>
+
+    <div class="bg-white border border-line rounded-2xl p-4 sm:p-5">
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-ink/50">Orders fulfilled</span>
+        <i data-lucide="package-check" class="w-3.5 h-3.5 text-leaf"></i>
+      </div>
+      <p class="font-mono text-xl sm:text-2xl font-bold text-forest mt-1.5">63</p>
+      <p class="text-[11px] text-leaf mt-1 flex items-center gap-1">
+        <i data-lucide="trending-up" class="w-3 h-3"></i> +8 this week
+      </p>
+    </div>
+
+    <div class="bg-white border border-line rounded-2xl p-4 sm:p-5">
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-ink/50">Active listings</span>
+        <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-soil"></i>
+      </div>
+      <p class="font-mono text-xl sm:text-2xl font-bold text-forest mt-1.5">5</p>
+      <p class="text-[11px] text-ink/40 mt-1">Across 3 categories</p>
+    </div>
+
+    <div class="bg-white border border-line rounded-2xl p-4 sm:p-5">
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-ink/50">Stock remaining</span>
+        <i data-lucide="warehouse" class="w-3.5 h-3.5 text-rust"></i>
+      </div>
+      <p class="font-mono text-xl sm:text-2xl font-bold text-forest mt-1.5">1,240kg</p>
+      <p class="text-[11px] text-rust mt-1 flex items-center gap-1">
+        <i data-lucide="alert-triangle" class="w-3 h-3"></i> 1 crop running low
+      </p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-6">
+
+    <!-- ============ SALES CHART ============ -->
+    <div class="bg-white border border-line rounded-2xl p-5 sm:p-6">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="font-display font-semibold text-lg text-forest">Sales this week</h2>
+        <span class="text-xs font-mono text-ink/40">in ₹</span>
+      </div>
+      <div class="flex items-end justify-between gap-2 sm:gap-4 h-40">
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <span class="text-[10px] font-mono text-ink/40">4.2k</span>
+          <div class="w-full bg-leaf/20 rounded-t-md bar-grow" style="height:48%"></div>
+          <span class="text-[11px] text-ink/50">Mon</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <span class="text-[10px] font-mono text-ink/40">6.8k</span>
+          <div class="w-full bg-leaf/30 rounded-t-md bar-grow" style="height:70%"></div>
+          <span class="text-[11px] text-ink/50">Tue</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <span class="text-[10px] font-mono text-ink/40">5.1k</span>
+          <div class="w-full bg-leaf/25 rounded-t-md bar-grow" style="height:56%"></div>
+          <span class="text-[11px] text-ink/50">Wed</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <span class="text-[10px] font-mono text-ink/40">8.9k</span>
+          <div class="w-full bg-forest rounded-t-md bar-grow" style="height:92%"></div>
+          <span class="text-[11px] text-ink/50 font-semibold text-forest">Thu</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <span class="text-[10px] font-mono text-ink/40">3.6k</span>
+          <div class="w-full bg-leaf/20 rounded-t-md bar-grow" style="height:40%"></div>
+          <span class="text-[11px] text-ink/50">Fri</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <span class="text-[10px] font-mono text-ink/40">7.4k</span>
+          <div class="w-full bg-leaf/30 rounded-t-md bar-grow" style="height:78%"></div>
+          <span class="text-[11px] text-ink/50">Sat</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <span class="text-[10px] font-mono text-ink/40">2.9k</span>
+          <div class="w-full bg-leaf/20 rounded-t-md bar-grow" style="height:32%"></div>
+          <span class="text-[11px] text-ink/50">Sun</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ CATEGORY SPLIT ============ -->
+    <div class="bg-white border border-line rounded-2xl p-5 sm:p-6">
+      <h2 class="font-display font-semibold text-lg text-forest mb-5">Revenue by category</h2>
+      <div class="space-y-4">
+        <div>
+          <div class="flex justify-between text-sm mb-1.5">
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-forest"></span>Grains & Pulses</span>
+            <span class="font-mono text-ink/60">₹89,400</span>
+          </div>
+          <div class="w-full h-2 bg-line rounded-full"><div class="h-2 bg-forest rounded-full" style="width:49%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1.5">
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-leaf"></span>Vegetables</span>
+            <span class="font-mono text-ink/60">₹61,150</span>
+          </div>
+          <div class="w-full h-2 bg-line rounded-full"><div class="h-2 bg-leaf rounded-full" style="width:33%"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1.5">
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-harvest"></span>Fruits</span>
+            <span class="font-mono text-ink/60">₹33,700</span>
+          </div>
+          <div class="w-full h-2 bg-line rounded-full"><div class="h-2 bg-harvest rounded-full" style="width:18%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6">
+
+    <!-- ============ STOCK LEFT TO SELL ============ -->
+    <div class="bg-white border border-line rounded-2xl p-5 sm:p-6">
+      <h2 class="font-display font-semibold text-lg text-forest mb-4 flex items-center gap-2">
+        <i data-lucide="warehouse" class="w-4 h-4"></i> Stock left to sell
+      </h2>
+      <div class="space-y-4">
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-sm font-medium">🌾 Basmati Rice</span>
+            <span class="font-mono text-xs text-ink/50">340 / 500kg</span>
+          </div>
+          <div class="w-full h-2 bg-line rounded-full"><div class="h-2 bg-leaf rounded-full" style="width:68%"></div></div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-sm font-medium">🫘 Toor Dal</span>
+            <span class="font-mono text-xs text-ink/50">210 / 300kg</span>
+          </div>
+          <div class="w-full h-2 bg-line rounded-full"><div class="h-2 bg-leaf rounded-full" style="width:70%"></div></div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-sm font-medium">🍅 Red Tomatoes</span>
+            <span class="font-mono text-xs text-ink/50">55 / 220kg</span>
+          </div>
+          <div class="w-full h-2 bg-line rounded-full"><div class="h-2 bg-harvest rounded-full" style="width:25%"></div></div>
+          <p class="text-[11px] text-rust mt-1 flex items-center gap-1"><i data-lucide="alert-triangle" class="w-3 h-3"></i> Running low — consider restocking</p>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-sm font-medium">🧅 Onions</span>
+            <span class="font-mono text-xs text-ink/50">380 / 400kg</span>
+          </div>
+          <div class="w-full h-2 bg-line rounded-full"><div class="h-2 bg-leaf rounded-full" style="width:95%"></div></div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-sm font-medium">🥬 Fresh Spinach</span>
+            <span class="font-mono text-xs text-ink/50">18 / 90kg</span>
+          </div>
+          <div class="w-full h-2 bg-line rounded-full"><div class="h-2 bg-rust rounded-full" style="width:20%"></div></div>
+          <p class="text-[11px] text-rust mt-1 flex items-center gap-1"><i data-lucide="alert-triangle" class="w-3 h-3"></i> Almost sold out</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============ RECENT TRANSACTIONS ============ -->
+    <div class="bg-white border border-line rounded-2xl p-5 sm:p-6">
+      <h2 class="font-display font-semibold text-lg text-forest mb-4 flex items-center gap-2">
+        <i data-lucide="receipt" class="w-4 h-4"></i> Recent transactions
+      </h2>
+      <div class="space-y-3">
+
+        <div class="flex items-center gap-3 pb-3 border-b border-line">
+          <div class="w-9 h-9 rounded-full bg-leaf/10 flex items-center justify-center text-lg shrink-0">🌾</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium truncate">Anand Traders <span class="text-ink/40 font-normal">bought Basmati Rice</span></p>
+            <p class="text-[11px] text-ink/40">80kg · Today, 10:42 AM</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="font-mono text-sm font-semibold text-forest">₹6,800</p>
+            <span class="text-[10px] font-medium text-leaf bg-leaf/10 px-2 py-0.5 rounded-full">Paid</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 pb-3 border-b border-line">
+          <div class="w-9 h-9 rounded-full bg-leaf/10 flex items-center justify-center text-lg shrink-0">🧅</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium truncate">Priya Wholesale Mart <span class="text-ink/40 font-normal">bought Onions</span></p>
+            <p class="text-[11px] text-ink/40">120kg · Today, 9:15 AM</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="font-mono text-sm font-semibold text-forest">₹2,640</p>
+            <span class="text-[10px] font-medium text-leaf bg-leaf/10 px-2 py-0.5 rounded-full">Paid</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 pb-3 border-b border-line">
+          <div class="w-9 h-9 rounded-full bg-harvest/10 flex items-center justify-center text-lg shrink-0">🍅</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium truncate">Deshmukh Fresh Foods <span class="text-ink/40 font-normal">bought Red Tomatoes</span></p>
+            <p class="text-[11px] text-ink/40">Yesterday, 6:50 PM</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="font-mono text-sm font-semibold text-forest">₹1,540</p>
+            <span class="text-[10px] font-medium text-harvest bg-harvest/10 px-2 py-0.5 rounded-full">Pending</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 pb-3 border-b border-line">
+          <div class="w-9 h-9 rounded-full bg-leaf/10 flex items-center justify-center text-lg shrink-0">🫘</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium truncate">Latur Grain Co-op <span class="text-ink/40 font-normal">bought Toor Dal</span></p>
+            <p class="text-[11px] text-ink/40">Yesterday, 2:20 PM</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="font-mono text-sm font-semibold text-forest">₹9,450</p>
+            <span class="text-[10px] font-medium text-leaf bg-leaf/10 px-2 py-0.5 rounded-full">Paid</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-rust/10 flex items-center justify-center text-lg shrink-0">🥬</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium truncate">Ludhiana Retail Hub <span class="text-ink/40 font-normal">bought Spinach</span></p>
+            <p class="text-[11px] text-ink/40">2 days ago, 11:05 AM</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="font-mono text-sm font-semibold text-forest">₹1,260</p>
+            <span class="text-[10px] font-medium text-rust bg-rust/10 px-2 py-0.5 rounded-full">Refunded</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="max-w-7xl mx-auto px-4 sm:px-6 py-10 mt-2 border-t border-line text-center">
+  <p class="text-xs text-ink/40">AgriMarket MVP — academic prototype. Analytics and transactions above are static demo data.</p>
+</footer>
+
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>

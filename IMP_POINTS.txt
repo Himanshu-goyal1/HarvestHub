@@ -1,0 +1,23 @@
+Harvest hub
+
+clean UI/ intuitive UI
+project must a refreshing take/new helpful point/uninqenss
+database requests, data validation for pull or push,//important
+features must be ample
+actual future scope
+apply concepts taught in classroom
+
+
+
+personal points
+consult the trainee of subject
+
+
+
+
+
+
+
+imp cmd
+1 . Get-NetTCPConnection -LocalPort 5000 | Select-Object LocalAddress,LocalPort,State,OwningProcess
+2 . get node processes tasklist | findstr node
